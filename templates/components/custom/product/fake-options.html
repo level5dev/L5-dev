@@ -4,20 +4,31 @@
     <div class="pdp-fake-options">
         <p class="pdp-fake-options__heading h5">{{lang 'custom.product.fake-options.heading'}}</p>
         <ul class="pdp-fake-options__button-container" data-tab>
+        {{assignVar 'index' 0}}
         {{#each product.custom_fields}}
             {{#contains (toLowerCase name) "__product-option|"}}
-                {{assignVar 'fo-name' (trim (last (split name '|')))}}
-
-                <li class="tab {{#contains value (getVar 'productId')}}is-active{{/contains}}">
-                    <a
-                        href="#option-{{dashcase (getVar 'fo-name')}}"
-                        class="button button--secondary button--small pdp-fake-options__button"
-                        data-option-button="option-{{dashcase (getVar 'fo-name')}}"
-                    >
-                    {{getVar 'fo-name'}}</a>
-                </li>
+                {{assignVar 'index' (add (getVar 'index') 1)}}
             {{/contains}}
         {{/each}}
+        
+        {{#if (getVar 'index') '!==' 1}}
+            {{#each product.custom_fields}}
+                {{#contains (toLowerCase name) "__product-option|"}}
+                    {{assignVar 'fo-name' (trim (last (split name '|')))}}
+                    <li class="tab {{#contains value (getVar 'productId')}}is-active{{/contains}}">
+                        <a
+                            href="#option-{{dashcase (getVar 'fo-name')}}"
+                            class="button button--secondary button--small pdp-fake-options__button"
+                            data-option-button="option-{{dashcase (getVar 'fo-name')}}"
+                        >
+                        {{getVar 'fo-name'}}</a>
+                    </li>
+                {{/contains}}
+            {{/each}}
+        {{/if}}     
+                
+                
+     
         </ul>
         <div class="pdp-fake-options__card-container">
         {{#each product.custom_fields}}

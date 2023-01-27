@@ -43,7 +43,7 @@ export default class Category extends CatalogPage {
       )
     );
   }
-
+  /*
   setUpIsotopeAttribute() {
     let data = {};
     const products = this.context.productList;
@@ -165,7 +165,7 @@ export default class Category extends CatalogPage {
       }
     });
   }
-
+*/
   onReady() {
     this.populateGridProduct();
     this.arrangeFocusOnSortBy();
@@ -319,19 +319,22 @@ export default class Category extends CatalogPage {
       });
   }
   */
-
+  ////////////////////////////////////////////////////////////////////
   populateGridProduct() {
     // this.requestProduct();
     const body = this;
     const UUIDcatc = this.context.UUIDcatc;
+    const categoryId = this.context.categoryId;
     axios
-      .get("https://sufri.api.stdlib.com/l5t@dev/getAllProduct/")
+      .get("https://sufri.api.stdlib.com/l5t@dev/getAllProduct/", {
+        params: { id: categoryId },
+      })
       .then(function (response) {
         const gridAllProducts = $("#grid-all-product");
         const data = response.data.product;
         const category = response.data.category;
 
-        console.log(UUIDcatc);
+        console.log(data);
         data.forEach((pr) => {
           let img = {};
 
@@ -380,11 +383,12 @@ export default class Category extends CatalogPage {
           }
 
           const template = `
-    <div id="product-${pr["id"]}" class="product" product-data-category="${
-            category[pr["categories"][0]] === undefined
-              ? ""
-              : category[pr["categories"][0]]["cat_id"].join(" ")
-          }" 
+    <div id="product-${pr["id"]}" sort-order="${
+            pr["sort_order"]
+          }" class="product" product-data-category="${getAllCategory(
+            category,
+            pr["categories"]
+          )}" 
                 product-data-name="${pr["fake-heading"]}" 
                 product-data-review="${
                   pr["reviews_count"] === 0
@@ -400,10 +404,16 @@ export default class Category extends CatalogPage {
                 product-date-created="${pr["date_created"]}" 
                 product-is-featured="${
                   pr["is_featured"]
-                }" product-best-selling="${pr["total_sold"]}">
+                }" product-best-selling="${pr["total_sold"]}"
+                product-custom-sort-order="${pr["custom-sort-order"]}">
   <div class="card-wrapper">
     <article class="card" data-test="card-${pr["id"]}">
       <figure class="card-figure">
+        <div class="sale-flag-sash" style="display: ${
+          pr["variants"][0].sale_price !== 0 ? "block;" : "none;"
+        } ">
+          <span class="sale-text">On Sale</span>
+        </div>
         <a href="${
           pr["custom_url"]["url"]
         }" class="card-figure__link" aria-label="${pr["name"]}, $${
@@ -469,12 +479,16 @@ export default class Category extends CatalogPage {
 
             <div class="card-text card-text--price" data-test-info-type="price">
 
-              <div class="price-section price-section--withoutTax rrp-price--withoutTax h4" style="display: none;">
+              <div class="price-section price-section--withoutTax rrp-price--withoutTax h4" style="display: block;">
                 <span class="is-srOnly">
                   MSRP:
                 </span>
                 <span data-product-rrp-price-without-tax="" class="price price--rrp h5">
-
+                  ${
+                    pr["variants"][0].sale_price !== 0
+                      ? "$" + pr["variants"][0].retail_price
+                      : ""
+                  }
                 </span>
               </div>
               <div class="price-section price-section--withoutTax non-sale-price--withoutTax h5" style="display: none;">
@@ -499,6 +513,21 @@ export default class Category extends CatalogPage {
                 }</span>
               </div>
             </div>
+            <p class="card-text card-text--extra" style="display: ${
+              pr["custom_fields"].find(
+                (field) => field["name"] === "__card-extra-info"
+              ) !== undefined
+                ? "relative;"
+                : "none;"
+            } "> ${
+            pr["custom_fields"].find(
+              (field) => field["name"] === "__card-extra-info"
+            ) !== undefined
+              ? pr["custom_fields"].find(
+                  (field) => field["name"] === "__card-extra-info"
+                ).value
+              : ""
+          }</p>
 
             <div class="card-action-wrapper">
 
@@ -520,8 +549,30 @@ export default class Category extends CatalogPage {
         body.startGlobal();
       })
       .catch(function (error) {
+        console.log("error");
         console.error(error);
       });
+    //end of getAllProduct for parent category page
+    console.log("test");
+
+    function getAllCategory(cat_list, pr_cat) {
+      let cat = "";
+      for (let i = 0; i < pr_cat.length; i++) {
+        // cat =
+        //   cat + cat_list[pr_cat[i]] === undefined
+        //     ? ""
+        //     : cat_list[pr_cat[i]]["cat_id"] === undefined
+        //     ? " "
+        //     : cat_list[pr_cat[i]]["cat_id"].join(" ") + " ";
+
+        if (cat_list[pr_cat[i]] !== undefined) {
+          cat = cat + cat_list[pr_cat[i]]["cat_id"].join(" ") + " ";
+        }
+        // console.log(cat_list[pr_cat[i]]);
+      }
+
+      return cat;
+    }
   }
 
   startGlobal() {
@@ -555,8 +606,15 @@ export default class Category extends CatalogPage {
         newest: function (itemElem) {
           return itemElem.getAttribute("product-date-created");
         },
+        custom_sort_order: function (itemElem) {
+          return Number(itemElem.getAttribute("product-custom-sort-order"));
+        },
       },
     });
+
+    // if (this.context.subcategories.length === 0) {
+
+    // }
 
     $("#all-sort-select").change(function () {
       const val = $(this).val().split("-");
@@ -674,9 +732,16 @@ export default class Category extends CatalogPage {
       }
     });
 
-    iso.arrange({
-      sortBy: "best_selling",
-      sortAscending: false,
-    });
+    if (this.context.subcategories.length === 0) {
+      iso.arrange({
+        sortBy: "custom_sort_order",
+        sortAscending: true,
+      });
+    } else {
+      iso.arrange({
+        sortBy: "best_selling",
+        sortAscending: false,
+      });
+    }
   }
 }

@@ -7,7 +7,7 @@ blog:
 ---
 
 {{#partial "page"}}
-
+{{ inject "posts" blog.posts }}
 {{> components/common/breadcrumbs breadcrumbs=breadcrumbs}}
 
 {{#unless theme_settings.its.custom_blog}}

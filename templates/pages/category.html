@@ -7,6 +7,7 @@ category:
 {{inject "categoryProductsPerPage" theme_settings.categorypage_products_per_page}}
 {{inject "categoryId" category.id}}
 {{inject "productList" category.products}}
+{{inject "subcategories" category.subcategories}}
 
 {{#if (getVar 'UUIDcounter')}}
     {{assignVar 'UUIDcounter' (add (getVar 'UUIDcounter') 1)}}
@@ -120,7 +121,7 @@ category:
 
 
 </style>
-{{category.id}}
+
 <div class="page">
     <div class="container category-heading__container">
         {{#unless theme_settings.hide_category_page_heading }}
@@ -129,6 +130,7 @@ category:
         {{/unless}}
     </div>
 
+    <!--
     {{#if category.subcategories}}
     <section class="categoryGrid container">
         <ul class="categoryGrid_list">
@@ -163,6 +165,7 @@ category:
         </ul>
     </section>
     {{/if}}
+    -->
 
     {{#if theme_settings.its.category_subcat_cards}}
         {{> components/custom/subcat-grid}}
@@ -177,7 +180,7 @@ category:
     <!--ALL PRODUCT-->  
     
     <section id="product-listing-all">
-        <h2>All Product</h2>
+        <!-- <h2>All Product</h2> -->
         <div class="flex-div-section">
             <div class="actionBar filter--section" >
                 <fieldset class="form-fieldset actionBar-section" >
@@ -194,6 +197,9 @@ category:
                             <option value="review-desc" {{#if sort '==' 'avgcustomerreview'}}selected{{/if}}>{{lang 'common.sorter.reviews'}}</option>
                             <option value="price-asc" {{#if sort '==' 'priceasc'}}selected{{/if}}>{{lang 'common.sorter.price_asc'}}</option>
                             <option value="price-desc" {{#if sort '==' 'pricedesc'}}selected{{/if}}>{{lang 'common.sorter.price_desc'}}</option>
+                            {{#if (length category.subcategories) '===' 0 }}
+                                <option value="custom_sort_order-asc" {{#if sort '==' 'pricedesc'}}selected{{/if}}>Default</option>
+                            {{/if}}
                             {{#if result_count}}
                                 <option value="relevance" {{#if sort '==' 'relevance'}}selected{{/if}}>{{lang 'common.sorter.relevance'}}</option>
                             {{/if}}
@@ -204,7 +210,7 @@ category:
                         <input type="checkbox" id="featured-checkbox" name="featured" checkbox-filter-all><label class="form-label" for="featured">{{lang 'common.sorter.featured'}}</label>
                         <br>
                         
-                        {{#each categories}}
+                        {{#each category.subcategories}}
                                 <input type="checkbox" filter-value="{{id}}" checkbox-filter-all name="filter-all"><label class="form-label" for="filter-all">{{name}}</label>
                                 <br>
                         {{/each}}
