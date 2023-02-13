@@ -1,5 +1,7 @@
 
-<article class="blog-post__card" data-link="{{post.url}}">
+<article class="blog-post__card" data-link="{{post.url}}" data-filter="{{#each post.tags}}
+                         {{name}} 
+                        {{/each}}">
     <div class="blog-post__card-container">
         {{#if post.thumbnail}}
             <figure class="blog-post__card-thumbnail">
@@ -47,9 +49,9 @@
                 {{#if post.tags}}
                     <ul class="blog-post__card-tags">
                         {{#each post.tags}}
-                        <li class="tag">
+                        <!-- <li class="tag">
                             <a class="h5" href="{{url}}">{{name}}</a>
-                        </li>
+                        </li> -->
                         {{/each}}
                     </ul>
                 {{/if}}

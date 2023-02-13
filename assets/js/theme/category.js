@@ -323,6 +323,7 @@ export default class Category extends CatalogPage {
   populateGridProduct() {
     // this.requestProduct();
     const body = this;
+    console.log("body", body);
     const UUIDcatc = this.context.UUIDcatc;
     const categoryId = this.context.categoryId;
     axios
@@ -553,7 +554,6 @@ export default class Category extends CatalogPage {
         console.error(error);
       });
     //end of getAllProduct for parent category page
-    console.log("test");
 
     function getAllCategory(cat_list, pr_cat) {
       let cat = "";
@@ -583,6 +583,7 @@ export default class Category extends CatalogPage {
     $(".grid").css("display", "grid");
     $(".lds-block").hide();
     let grid = document.getElementById("grid-all-product");
+    console.log("grid", grid);
     let iso = new Isotope(grid, {
       // options...
       itemSelector: ".product",
