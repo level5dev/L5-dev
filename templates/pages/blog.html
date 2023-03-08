@@ -90,6 +90,15 @@ blog:
             }}
         </aside>
     </section>
+    <!-- SSCODE: function for clickable article blog-post__card-->
+    <script>
+        const card = document.querySelectorAll("article.blog-post__card");
+        for (let i = 0; i < card.length; i++) {
+         card[i].addEventListener('click', function(event) {
+             window.location = this.getAttribute("data-link");
+         });
+        }
+    </script>
 {{/unless}}
 {{/partial}}
 {{> layout/base container_active=true}}

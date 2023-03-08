@@ -14,7 +14,7 @@
             {{#if product.price.with_tax}}
                 {{product.price.with_tax.value}}
             {{else}}
-                {{product.price.without_tax.value}}
+                {{product.price.without_tax.value}} 
             {{/if}}
         {{else}}
             {{lang 'common.login_for_pricing'}}
@@ -221,23 +221,9 @@
 
                 {{> components/custom/product/fake-options }}
                 
-            {{#filter product.custom_fields '__banner-off-text' property='name'}}
-                <div class="pdp-banner pdp-banner--sale">
-                        <p class="pdp-banner__heading h2">HOLIDAY SALE</p>
-                    <ul class="pdp-banner__list">
-                            <li class="pdp-banner__text">
-                                THIS ITEM IS CURRENTLY <span style="color:red;">{{{this.value}}}</span> OFF!
-                            </li>
-                        {{#if ../product.price.without_tax.value '>' 49.99}}
-                            <li class="pdp-banner__text">
-                                <span style="color:red;">FREE</span> FAST SHIPPING*
-                            </li>
-                        {{/if}}
-                    </ul>
-                </div>
-            {{/filter}}
-            
-                        {{#filter product.custom_fields '__banner-flash-text' property='name'}}
+            {{!-- old version --}}
+            {{!--
+            {{#filter product.custom_fields '__banner-flash-text' property='name'}}
                 <div class="pdp-banner pdp-banner--sale">
                     <p class="pdp-banner__heading h2">FLASH SALE</p>
                     <ul class="pdp-banner__list">
@@ -252,23 +238,25 @@
                     </ul>
                 </div>
             {{/filter}}
-
+            --}}
+            
                 <form class="form" method="post" action="{{product.cart_url}}" enctype="multipart/form-data"
                     data-cart-item-add>
                     <input type="hidden" name="action" value="add">
                     <input type="hidden" name="product_id" value="{{product.id}}"/>
-                    <div data-product-option-change style="display:none;">
+                    <div data-product-option-change style="display:none">
                         {{inject 'showSwatchNames' theme_settings.show_product_swatch_names}}
                         {{#each product.options}}
                             {{{dynamicComponent 'components/products/options'}}}
                         {{/each}}
                     </div>
+                    <!--
                     <div class="form-field form-field--stock{{#unless product.stock_level}} u-hiddenVisually{{/unless}}">
                         <label class="form-label form-label--alternate">
                             {{lang 'products.current_stock'}}
                             <span data-product-stock>{{product.stock_level}}</span>
                         </label>
-                    </div>
+                    </div>-->
                 
 
                     <div class="productView-price">
@@ -344,6 +332,7 @@
                 </div>
                 <div class="loadingOverlay"></div>
             </div>
+            <br/>
             <!-- END KLARNA MODAL -->
             {{#filter product.custom_fields '__amazon-asin' property='name'}}
                 <a href="https://www.amazon.com/dp/{{{this.value}}}" style="color:red;display:inline;margin-bottom:0.5rem;">This item is also available with FREE shipping on <img src="https://cdn11.bigcommerce.com/s-89a9ntp16/images/stencil/original/image-manager/amazonprime.png?t=1666339565" alt="amazon logo" style="display:inline;height:24px;-o-object-fit: contain;object-fit: contain;"></a>

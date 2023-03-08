@@ -1,6 +1,6 @@
 import Wishlist from '../wishlist';
 import { initRadioOptions } from './aria';
-import { isObject, isNumber } from 'lodash';
+import { isObject, isNumber, floor } from 'lodash';
 
 const optionsTypesMap = {
     INPUT_FILE: 'input-file',
@@ -139,6 +139,7 @@ export default class ProductDetailsBase {
      */
     getViewModel($scope) {
         return {
+            $bdspData: $('#bdsp-data', $scope),
             $priceWithTax: $('[data-product-price-with-tax]', $scope),
             $priceWithoutTax: $('[data-product-price-without-tax]', $scope),
             rrpWithTax: {
@@ -281,6 +282,9 @@ export default class ProductDetailsBase {
     updatePriceView(viewModel, price) {
         this.clearPricingNotFound(viewModel);
 
+        const bdspPercentage = viewModel.$bdspData.data('bdsp-percentage-off') || 0;
+        const hasBdspSale = bdspPercentage !== 0;
+
         if (price.with_tax) {
             const updatedPrice = price.price_range ?
                 `${price.price_range.min.with_tax.formatted} - ${price.price_range.max.with_tax.formatted}`
@@ -290,9 +294,19 @@ export default class ProductDetailsBase {
         }
 
         if (price.without_tax) {
-            const updatedPrice = price.price_range ?
-                `${price.price_range.min.without_tax.formatted} - ${price.price_range.max.without_tax.formatted}`
-                : price.without_tax.formatted;
+            const bdspAmountOff = price.without_tax.value * (bdspPercentage / 100)
+            let updatedPrice;
+
+            if (!hasBdspSale) {
+                updatedPrice = price.price_range ?
+                    `${price.price_range.min.without_tax.formatted} - ${price.price_range.max.without_tax.formatted}`
+                    : price.without_tax.formatted;
+            } else {
+                const discountPrice = floor(price.without_tax.value - bdspAmountOff, 2).toFixed(2);
+
+                updatedPrice = `$${discountPrice}`;
+            }
+
             viewModel.priceLabel.$span.show();
             viewModel.$priceWithoutTax.html(updatedPrice);
         }
@@ -302,7 +316,7 @@ export default class ProductDetailsBase {
             viewModel.rrpWithTax.$span.html(price.rrp_with_tax.formatted);
         }
 
-        if (price.rrp_without_tax) {
+        if (price.rrp_without_tax && !hasBdspSale) {
             viewModel.rrpWithoutTax.$div.show();
             viewModel.rrpWithoutTax.$span.html(price.rrp_without_tax.formatted);
         }
@@ -319,11 +333,14 @@ export default class ProductDetailsBase {
             viewModel.nonSaleWithTax.$span.html(price.non_sale_price_with_tax.formatted);
         }
 
-        if (price.non_sale_price_without_tax) {
+        if (price.non_sale_price_without_tax && !hasBdspSale) {
             viewModel.priceLabel.$span.hide();
             viewModel.nonSaleWithoutTax.$div.show();
             viewModel.priceNowLabel.$span.show();
             viewModel.nonSaleWithoutTax.$span.html(price.non_sale_price_without_tax.formatted);
+        } else if (hasBdspSale){
+            viewModel.nonSaleWithoutTax.$div.show();
+            viewModel.nonSaleWithoutTax.$span.html(price.without_tax.formatted);
         }
     }
 

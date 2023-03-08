@@ -9,38 +9,38 @@
                     "image-alt-text": "Taping Tool Set",
                     "image-placeholder": "webdav:/thumbs/4-600.jpg",
                     "title": "Full Taping & Finishing Set",
-                    "text": "$2317",
-                    "discount": "$3309"
-                },
-                "category-1": {
-                    "view": "true",
-                    "link": "/skimming-blade-set-10-24-32-handle/",
-                    "image": "webdav:/thumbs/5-441.jpg",
-                    "image-alt-text": "Skimming Blade Set",
-                    "image-placeholder": "webdav:/thumbs/5-441.jpg",
-                    "title": "Skimming Blade Set",
-                    "text": "$271.46",
-                    "discount": "$361.95"
+                    "text": "$2794",
+                    "discount": "$3725"
                 },
                 "category-2": {
+                    "view": "true",
+                    "link": "/skimming-blade-roller-set/",
+                    "image": "webdav:/thumbs/5-550.jpg",
+                    "image-alt-text": "Skimming Blade Set",
+                    "image-placeholder": "webdav:/thumbs/5-550.jpg",
+                    "title": "Skimming Blade Set",
+                    "text": "$399.99 ",
+                    "discount": "$499.99"
+                },
+                "category-3": {
                     "view": "true",
                     "link": "/stainless-finishing-knife-set/",
                     "image": "webdav:/thumbs/5-600.jpg",
                     "image-alt-text": "Hand Tool Set",
                     "image-placeholder": "webdav:/thumbs/5-600.jpg",
                     "title": "Hand Tool Finishing Set",
-                    "text": "$77.31",
+                    "text": "$68.21",
                     "discount": "$90.95"
                 }
             },
             "top-navigation": {
                 "shipping-header":{
                     "number-of-headers": "2",
-                    "header-1": {
-                        "shipping-message": "HOLIDAY SALE ON NOW »", 
-                        "shipping-link": "https://info.level5tools.com/holiday-sale"
+                "header-1": {
+                        "shipping-message": "MARCH MUDNESS SALE ON NOW. CLICK HERE »", 
+                        "shipping-link": "/march-mudness/"
                     },
-                    "header-2": {
+                 "header-2": {
                         "shipping-message": "FREE SHIPPING ON ALL ORDERS $50 OR MORE* VIEW DETAILS »", 
                         "shipping-link": "/shipping-returns/"
                     }
@@ -48,8 +48,8 @@
 
                 "number-of-links": "6",
                 "link-1": {
-                    "link": "#",
-                    "text": " "
+                    "link": "/merch/",
+                    "text": "MERCH"
                 },
                 "link-2": {
                     "link": "/login.php",
@@ -193,7 +193,7 @@
                     "button-link": "/automatic-finishing/sets/"
                 },
                 "cta-2": {
-                    "image": "/home-images/automatic-drywall-finishing.png",
+                    "image": "/home-images/automatic-drywall-finishing.jpg",
                     "image-alt": "Automatic Finishing Tools",
                     "title": "Automatic Drywall Finishing",
                     "text": "Time = money. achieve professional quality finishing results in a fraction of the time.",
@@ -201,15 +201,15 @@
                     "button-link": "/automatic-finishing/"
                 },
                 "cta-3": {
-                    "image": "/home-images/skimming-blades.png",
+                    "image": "/home-images/skimming-blades.jpg",
                     "image-alt": "Skimming Blades",
                     "title": "Skimming Blades",
-                    "text": "Smoothing walls just got easier. If you haven’t tried skimming bladeS yet, you should.",
+                    "text": "Smoothing walls just got easier. If you haven’t tried skimming blades yet, you should.",
                     "button-text": "View Skimming Blades",
                     "button-link": "/skimming-blades/"
                 },
                 "cta-4": {
-                    "image": "/home-images/hand-finishing-tools.png",
+                    "image": "/home-images/hand-finishing-tools.jpg",
                     "image-alt": "Hand Finishing Tools",
                     "title": "Hand Finishing Tools",
                     "text": "Industry-leading designs. Advanced features. Day in, day out performance and comfort.",
@@ -220,16 +220,16 @@
             "bottom-callout": {
                 "callout-1": {
                     "title": "Monthly Tool Giveaway",
-                    "month": "September's VIP Winner",
-                    "winner-name": "Craig Giere",
-                    "location": "Craigs Custom Drywall, Red Oak, TX",
-                    "item-month": "November Giveaway",
-                    "item-image": "/thumbs/4-760.jpg",
-                    "item-image-alt": "Automatic Drywall Finishing",
+                    "month": "February's VIP Winner",
+                    "winner-name": "Anothony Oddon",
+                    "location": "Oddon Drywall",
+                    "item-month": "March Giveaway",
+                    "item-image": "/thumbs/4-771.jpg",
+                    "item-image-alt": "Compound Pump",
                     "item-brand-img": "/home-images/l5-brand.png",
                     "item-brand-img-alt": "Level 5 Brand",
-                    "item-title": "Automatic Drywall Taper",
-                    "item-value": "Valued at <strong>$1,199!</strong>",
+                    "item-title": "Compound Pump",
+                    "item-value": "Valued at <strong>$399!</strong>",
                     "link-text": "Not a LEVEL5 VIP yet?",
                     "link-url": "https://info.level5tools.com/vip"
                 },
@@ -245,10 +245,10 @@
                     "title": "From The Blog",
                     "heading": "How to use drywall flat box on walls",
                     "text": "The Best Techniques for Running a Flat Box on Walls",
-                    "image": "/home-images/skimming-blades.png",
+                    "image": "/home-images/flat-boxes.jpg",
                     "image-alt": "Skimming Blades",
                     "button-text": "Read More &#187;",
-                    "button-link": "##"
+                    "button-link": "/blog/how-to-use-drywall-flat-box-on-walls/"
                 }
             },
             "testimonial-callout": {
@@ -274,7 +274,11 @@
             "modal-default-link-text": "Click here for more information",
             "sale-banner": {
                 "heading": "Black Friday Pricing",
-                "text": "This item is {percentageOff} OFF until Nov 30th, 2022"
+                "text": "This item is {percentageOff} OFF until Nov 30th, 2022",
+                "line-3": {
+                    "enabled": "false",
+                    "line-3-default-text": "ADDITIONAL PROMOTIONAL CONTENT"
+                }
             },
             "sold-out-banner": {
                 "heading": "Sold Out",
@@ -313,8 +317,8 @@
                         "link":"/blog/drywall-skimming-blades"
                     },
                     "post-2":{
-                        "title": "LEVEL5 HOLIDAY GIFT GUIDE",
-                        "link":"/blog/holiday-gift-guide"
+                        "title": "STAINLESS STEEL VS CARBON STEEL TOOLS",
+                        "link":"/blog/stainless-steel-versus-carbon-steel-drywall-tools"
                     },
                     "post-3":{
                         "title": "WHAT IS A DRYWALL FLAT BOX?",
@@ -493,7 +497,7 @@
         "discount": "Discount",
         "included_in_total": " Included in Total",
         "remove_file": "Remove this file",
-        "freeshipping": "Free Shipping",
+        "freeshipping": "Free 3-5 Day Shipping",
         "reconfigure_product": "Configure '{name}'",
         "shipping_peritem": "Per Item Shipping",
         "remove_item": "Remove {name} from cart",
@@ -524,7 +528,7 @@
             "estimate_shipping": "Estimate Shipping",
             "suburb_city": "Suburb/city",
             "zip_postal_code": "Zip/postcode",
-            "free_shipping": "Free shipping",
+            "free_shipping": "Free 3-5 Day Shipping",
             "hide_ups_rates": "Hide UPS Rates",
             "show_ups_rates": "Show UPS Rates",
             "empty_country_error": "The 'Country' field cannot be blank.",
@@ -1038,7 +1042,7 @@
             "by_setting": "Search By Setting",
             "search": "Search",
             "free_shipping": {
-                "title": "Free Shipping",
+                "title": "Free 3-5 Day Shipping",
                 "free": "Only Free Shipping",
                 "paid": "Only Paid Shipping"
             },
@@ -1126,9 +1130,9 @@
         "related_products": "You Might Also Like",
         "top": "Most Popular Products",
         "similar_by_views": "Customers Also Viewed",
-        "featured": "Our Top Sellers",
-        "featured_sublink": "View Full Catalog &#187;",
-        "featured_sublink_url": "##",
+        "featured": "On Sale Now",
+        "featured_sublink": "View All Sale Items &#187;",
+        "featured_sublink_url": "/march-mudness/",
         "new": "What's New",
         "new_sublink": "View All Items &#187;",
         "new_sublink_url": "/whats-new/",
@@ -1179,7 +1183,7 @@
         "swatch_option_announcement": "Selected {swatch_name} is",
         "shipping": "Shipping:",
         "shipping_fixed": "{amount} (Fixed Shipping Cost)",
-        "shipping_free": "Free Shipping",
+        "shipping_free": "Free 3-5 Day Shipping",
         "shipping_calculated": "Calculated at Checkout",
         "sold_out": "Sold Out",
         "pre_order": "Pre-Order Now",

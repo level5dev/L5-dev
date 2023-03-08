@@ -1,5 +1,7 @@
 import utils from '@bigcommerce/stencil-utils';
 import Swal from '../global/sweet-alert';
+import modalFactory, { alertModal, showAlertModal } from '../global/modal';
+
 
 export default class CardAddToCart {
     constructor(context) {
@@ -9,6 +11,8 @@ export default class CardAddToCart {
         this.defaultQty = (typeof context.itsConfig.card_atc_input_default) === 'string' ? 0 : context.itsConfig.card_atc_input_default;
 
         $('body').on('facetedSearchRefresh productViewModeChanged', this.bindEvents.bind(this));
+        this.$overlay = $('[data-cart-item-add] .loadingOverlay');
+
 
         this.bindEvents();
     }
@@ -42,19 +46,46 @@ export default class CardAddToCart {
      * Add product to the cart
      * @param {string} url - Product add url
      * @param {HTMLElement} $target - HTML element (card) that is being added
-     */
+    */
     addItemToCart(url, $target) {
-        this.updateCard($target, 'loading');
+        this.previewModal = modalFactory('#previewModal')[0];
 
-        $.post(url, () => {
+        this.updateCard($target, 'loading');
+        const $cardAtcModal = $('[data-card-atc-modal]');
+
+        $.post(url, (reponse) => {
+            const cartResponse = reponse;
+
             this.updateCard($target, 'complete');
             utils.api.cart.getCartQuantity({}, (error, response) => {
                 if (error) return;
 
                 const quantity = parseInt(response, 10);
                 const $cartCounter = $('.navUser-action .cart-count');
+                const $cardAddedHeading = $('[data-cart-added-heading]');
                 $cartCounter.addClass('cart-count--positive');
                 $('body').trigger('cart-quantity-update', quantity);
+
+                // Open preview modal and update content
+                if (this.previewModal) {
+                    this.previewModal.open();
+                    $cardAtcModal.show();
+
+                    this.previewModal.updateContent($cardAtcModal);
+                    // if cart.items > 1 use plural text
+                    quantity > 1 ? $cardAddedHeading.text(`Ok, ${quantity} items were added to your cart. What's next?`) : $cardAddedHeading.text('Ok, 1 item was added to your cart. What\'s next?');
+
+
+                    if (window.ApplePaySession) {
+                        this.previewModal.$modal.addClass('apple-pay-supported');
+                    }
+
+                    // if (!this.checkIsQuickViewChild($target)) {
+                    //     this.previewModal.$preModalFocusedEl = $target;
+                    // }
+
+                    // this.updateCartContent(this.previewModal, response.data.cart_item.id);
+                }
             });
         });
     }

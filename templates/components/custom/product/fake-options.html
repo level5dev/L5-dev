@@ -1,24 +1,34 @@
 {{assignVar 'productId' product.id}}
+{{assignVar 'index' 0}}
 
 {{#contains (toLowerCase (join (pluck product.custom_fields 'name') ',')) '__product-option|'}}
+    <!-- SSCODE: get number of product option available -->
+    {{#each product.custom_fields}}
+            {{#contains (toLowerCase name) "__product-option|"}}
+                {{assignVar 'index' (add (getVar 'index') 1)}}
+            {{/contains}}
+    {{/each}}
     <div class="pdp-fake-options">
         <p class="pdp-fake-options__heading h5">{{lang 'custom.product.fake-options.heading'}}</p>
-        <ul class="pdp-fake-options__button-container" data-tab>
-        {{#each product.custom_fields}}
-            {{#contains (toLowerCase name) "__product-option|"}}
-                {{assignVar 'fo-name' (trim (last (split name '|')))}}
-
-                <li class="tab {{#contains value (getVar 'productId')}}is-active{{/contains}}">
-                    <a
-                        href="#option-{{dashcase (getVar 'fo-name')}}"
-                        class="button button--secondary button--small pdp-fake-options__button"
-                        data-option-button="option-{{dashcase (getVar 'fo-name')}}"
-                    >
-                    {{getVar 'fo-name'}}</a>
-                </li>
-            {{/contains}}
-        {{/each}}
-        </ul>
+        <!-- SSCODE: if more than 1 product option, view pdp pill -->
+        {{#if (getVar 'index') '!==' 1}}
+            <ul class="pdp-fake-options__button-container" data-tab>
+            {{#each product.custom_fields}}
+                {{#contains (toLowerCase name) "__product-option|"}}
+                    {{assignVar 'fo-name' (trim (last (split name '|')))}}
+    
+                    <li class="tab {{#contains value (getVar 'productId')}}is-active{{/contains}}">
+                        <a
+                            href="#option-{{dashcase (getVar 'fo-name')}}"
+                            class="button button--secondary button--small pdp-fake-options__button"
+                            data-option-button="option-{{dashcase (getVar 'fo-name')}}"
+                        >
+                        {{getVar 'fo-name'}}</a>
+                    </li>
+                {{/contains}}
+            {{/each}}
+            </ul>
+        {{/if}}
         <div class="pdp-fake-options__card-container">
         {{#each product.custom_fields}}
             {{#contains (toLowerCase name) "__product-option|"}}

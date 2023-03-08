@@ -345,3 +345,31 @@ span.price.price--rrp.h5 {
 .actionBar.category-facets {
  display:none;   
 }
+
+.page-heading {
+    margin: 0;
+}
+
+
+.breadcrumbs {
+    margin-bottom:0;
+}
+
+.sale-flag-sash-cat {
+    font-size: 1.2rem;
+    font-weight: 500;
+    height: 2.5rem;
+    right: -41px;
+    line-height: 2.5rem;
+    padding-top: .09375rem;
+    position: absolute;
+    text-align: center;
+    top: 27px;
+    transform: rotate(45deg);
+    transition: background-color .8s ease;
+    width: 11.0625rem;
+    z-index: 9;
+    background: #d4ff51;
+    color: #dc0000;
+    text-transform: uppercase;
+}

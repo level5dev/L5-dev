@@ -6,6 +6,11 @@
 // Blog post
 // -----------------------------------------------------------------------------
 
+// SSCODE: style cursor to pointer when hover article
+article.blog-post__card[data-link] {
+    cursor: pointer;
+}
+
 .blog {
     margin-bottom: spacing("single");
 
